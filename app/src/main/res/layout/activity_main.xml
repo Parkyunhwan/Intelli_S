@@ -27,5 +27,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+string/Button1"
+        app:layout_anchor="@+id/samples_recycler_view"
+        app:layout_anchorGravity="center" />
+
 
 </android.support.design.widget.CoordinatorLayout>
