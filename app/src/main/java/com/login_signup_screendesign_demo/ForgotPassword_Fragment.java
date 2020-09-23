@@ -1,8 +1,8 @@
 package com.login_signup_screendesign_demo;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
@@ -15,13 +15,32 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ForgotPassword_Fragment extends Fragment implements
-		OnClickListener {
-	private static View view;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.login_signup_screendesign_demo.api.NetworkUtil;
+import com.login_signup_screendesign_demo.models.Response;
+import com.login_signup_screendesign_demo.utils.Utils;
 
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import retrofit2.adapter.rxjava.HttpException;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
+
+public class ForgotPassword_Fragment extends Fragment implements OnClickListener{
+		public interface Listener {
+
+			void onPasswordReset(String message);
+		}
+	private static View view;
+	private MainActivity mListener;
 	private static EditText emailId;
 	private static TextView submit, back;
 
+	private CompositeSubscription mSubscriptions;
 	public ForgotPassword_Fragment() {
 
 	}
@@ -31,9 +50,15 @@ public class ForgotPassword_Fragment extends Fragment implements
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.forgotpassword_layout, container,
 				false);
+		mSubscriptions = new CompositeSubscription();
 		initViews();
 		setListeners();
 		return view;
+	}
+
+	public void onAttach(Context context) {
+		super.onAttach((Activity) context);
+		mListener = (MainActivity)context;
 	}
 
 	// Initialize the views
@@ -43,7 +68,7 @@ public class ForgotPassword_Fragment extends Fragment implements
 		back = (TextView) view.findViewById(R.id.backToLoginBtn);
 
 		// Setting text selector over textviews
-		XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
+		@SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
 		try {
 			ColorStateList csl = ColorStateList.createFromXml(getResources(),
 					xrp);
@@ -74,14 +99,14 @@ public class ForgotPassword_Fragment extends Fragment implements
 		case R.id.forgot_button:
 
 			// Call Submit button task
-			submitButtonTask();
+			resetPasswordInit();
 			break;
 
 		}
 
 	}
 
-	private void submitButtonTask() {
+	private void resetPasswordInit() {
 		String getEmailId = emailId.getText().toString();
 
 		// Pattern for email id validation
@@ -89,21 +114,72 @@ public class ForgotPassword_Fragment extends Fragment implements
 
 		// Match the pattern
 		Matcher m = p.matcher(getEmailId);
-
+		int err =0;
 		// First check if email id is not null else show error toast
-		if (getEmailId.equals("") || getEmailId.length() == 0)
+		if (getEmailId.equals("") || getEmailId.length() == 0) {
 
+			err++;
 			new CustomToast().Show_Toast(getActivity(), view,
-					"Please enter your Email Id.");
-
+					"이메일 아이디를 입력해 주세요.");
+		}
 		// Check if email id is valid or not
-		else if (!m.find())
+		else if (!m.find()) {
+			err++;
 			new CustomToast().Show_Toast(getActivity(), view,
-					"Your Email Id is Invalid.");
-
+					"존재하지 않는 아이디입니다.");
+		}
 		// Else submit email id and fetch passwod or do your stuff
-		else
+		if(err==0) {
 			Toast.makeText(getActivity(), "Get Forgot Password.",
 					Toast.LENGTH_SHORT).show();
+			resetPasswordInitProgress(emailId.toString());
+		}
 	}
-}
+
+
+	private void resetPasswordInitProgress(String email) {
+
+		mSubscriptions.add(NetworkUtil.getRetrofit().resetPasswordInit(email)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleResponse,this::handleError));
+	}
+
+	private void handleResponse(Response response) {
+
+		new MainActivity().replaceLoginFragment();
+
+	}
+
+	private void handleError(Throwable error) {
+
+
+		if (error instanceof HttpException) {
+
+			Gson gson = new GsonBuilder().create();
+
+			try {
+
+				String errorBody = ((HttpException) error).response().errorBody().string();
+				Response response = gson.fromJson(errorBody,Response.class);
+				new CustomToast().Show_Toast(getActivity(), view,
+						response.getMessage());
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+
+			new CustomToast().Show_Toast(getActivity(), view,
+					"Network Error");
+		}
+	}
+
+
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mSubscriptions.unsubscribe();
+	}
+		}

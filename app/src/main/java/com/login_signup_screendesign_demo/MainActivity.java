@@ -1,13 +1,14 @@
 package com.login_signup_screendesign_demo;
 
-import com.login_signup_screendesign_demo.R;
-
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.login_signup_screendesign_demo.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 	private static FragmentManager fragmentManager;
@@ -67,5 +68,16 @@ public class MainActivity extends AppCompatActivity {
 			replaceLoginFragment();
 		else
 			super.onBackPressed();
+	}
+
+	public void onPasswordReset(String message) {
+
+		showSnackBarMessage(message);
+	}
+
+	private void showSnackBarMessage(String message) {
+
+
+
 	}
 }

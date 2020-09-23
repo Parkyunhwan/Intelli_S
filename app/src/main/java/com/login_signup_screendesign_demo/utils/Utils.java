@@ -1,4 +1,4 @@
-package com.login_signup_screendesign_demo;
+package com.login_signup_screendesign_demo.utils;
 
 public class Utils {
 	

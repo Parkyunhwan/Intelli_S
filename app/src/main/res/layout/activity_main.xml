@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_color" >
+        android:background="@drawable/login_img" >
 
         <ImageView
             android:id="@+id/close_activity"
