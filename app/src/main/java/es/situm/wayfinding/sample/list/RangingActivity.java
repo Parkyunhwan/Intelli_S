@@ -22,12 +22,36 @@ import java.util.List;
 import java.util.ListIterator;
 
 import es.situm.wayfinding.sample.R;
+// //  //  // / / / /
+import android.view.View;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.app.Activity;
 
 public class RangingActivity extends AppCompatActivity  implements BeaconConsumer {
     protected static final String TAG1 = "::MonitoringActivity::";
     protected static final String TAG2 = "::RangingActivity::";
     private BeaconManager beaconManager;
-
+    static  String strJson = "";
+    TextView tvResponse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -35,6 +59,8 @@ public class RangingActivity extends AppCompatActivity  implements BeaconConsume
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
+        tvResponse = (TextView) findViewById(R.id.tvResponse);
+
         beaconManager = BeaconManager.getInstanceForApplication(this);
         //getBeaconParsers() = 활성 비콘 파서 목록을 가져옴
         //거기에 새로운 비콘파서 형식을 만들어서 .add()
@@ -94,13 +120,11 @@ public class RangingActivity extends AppCompatActivity  implements BeaconConsume
                         Log.i(TAG2, ":::::This ::M i n o r:: of beacon   :  " + B.getId3().toString() + ":::::");
 
                         // 통신 코드
-                        // 문 개폐 일정거리 정해놓고 서버로 보냄
-
-
-//                        Log.i(TAG2, ":::::The first beacon I see is about " + beacons.iterator().next().getDistance() + " meters away.:::::");
-//                        Log.i(TAG2, ":::::This :: U U I D :: of beacon   :  " + beacons.iterator().next().getId1().toString() + ":::::");
-//                        Log.i(TAG2, ":::::This ::M a j o r:: of beacon   :  " + beacons.iterator().next().getId2().toString() + ":::::");
-//                        Log.i(TAG2, ":::::This ::M i n o r:: of beacon   :  " + beacons.iterator().next().getId3().toString() + ":::::");
+                        if(B.getDistance() < 2.0) {
+                            HttpAsyncTask httpTask = new HttpAsyncTask(RangingActivity.this);
+                            httpTask.execute("http://hmkcode.appspot.com/jsonservlet", B.getId1().toString(), B.getId2().toString(), B.getId3().toString());
+                            // 문 개폐 일정거리 정해놓고 서버로 보냄
+                        }
                     }
                 }
             }
@@ -109,5 +133,155 @@ public class RangingActivity extends AppCompatActivity  implements BeaconConsume
             //알려주는 BeaconService전달 일치 비콘을 찾고 시작하는 Region개체를 지역에서 비콘을 볼 수있는 동안 추정 mDistance에있는 모든 초 업데이트를 제공
             beaconManager.startRangingBeaconsInRegion(new Region("C2:02:DD:00:13:DD", null, null, null));
         } catch (RemoteException e) {    }
+    }
+
+    public static String POST(String url, JSONObject jsonbeacon){
+        InputStream is = null;
+        String result = "";
+        try {
+            URL urlCon = new URL(url);
+            HttpURLConnection httpCon = (HttpURLConnection)urlCon.openConnection();
+
+            String json = "";
+
+            // build jsonObject // 필요없을듯.
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.accumulate("name", person.getName());
+//            jsonObject.accumulate("country", person.getCountry());
+//            jsonObject.accumulate("twitter", person.getTwitter());
+
+            // convert JSONObject to JSON to String
+            //json = jsonObject.toString();
+            //추가
+            json = jsonbeacon.toString();
+            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
+            // ObjectMapper mapper = new ObjectMapper();
+            // json = mapper.writeValueAsString(person);
+
+            // Set some headers to inform server about the type of the content
+            httpCon.setRequestProperty("Accept", "application/json");
+            httpCon.setRequestProperty("Content-type", "application/json");
+
+            // OutputStream으로 POST 데이터를 넘겨주겠다는 옵션.
+            httpCon.setDoOutput(true);
+            // InputStream으로 서버로 부터 응답을 받겠다는 옵션.
+            httpCon.setDoInput(true);
+
+            OutputStream os = httpCon.getOutputStream();
+            os.write(json.getBytes("euc-kr"));
+            os.flush();
+            // receive response as inputStream
+            try {
+                is = httpCon.getInputStream();
+                // convert inputstream to string
+                if(is != null)
+                    result = convertInputStreamToString(is);
+                else
+                    result = "Did not work!";
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally {
+                httpCon.disconnect();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
+    public boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
+    }
+//    @Override
+//    public void onClick(View view) {
+//
+//        switch(view.getId()){
+//            case R.id.btnPost:
+//                if(!validate())
+//                    Toast.makeText(getBaseContext(), "Enter some data!", Toast.LENGTH_LONG).show();
+//                else {
+//                    // call AsynTask to perform network operation on separate thread
+//                    //HttpAsyncTask httpTask = new HttpAsyncTask(MainActivity.this);
+//                    //httpTask.execute("http://hmkcode.appspot.com/jsonservlet", etName.getText().toString(), etCountry.getText().toString(), etTwitter.getText().toString());
+//                }
+//                break;
+//        }
+
+//    }
+    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+
+        private   RangingActivity rangAct;
+
+        HttpAsyncTask(RangingActivity rangingActivity) {
+            this.rangAct = rangingActivity;
+        }
+        @Override
+        protected String doInBackground(String... urls) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+
+                jsonObject.accumulate("UUID", urls[1]);
+                jsonObject.accumulate("MAJOR", urls[2]);
+                jsonObject.accumulate("MINOR", urls[3]);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return POST(urls[0],jsonObject);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            strJson = result;
+            rangAct.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(rangAct, "Received!", Toast.LENGTH_LONG).show();
+                    try {
+                        JSONArray json = new JSONArray(strJson);
+                        rangAct.tvResponse.setText(json.toString(1));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+        }
+    }
+
+//    private boolean validate(){
+////        if(etName.getText().toString().trim().equals(""))
+////            return false;
+////        else if(etCountry.getText().toString().trim().equals(""))
+////            return false;
+////        else if(etTwitter.getText().toString().trim().equals(""))
+////            return false;
+////        else
+//            return true;
+//    }
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+
     }
 }
