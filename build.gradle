@@ -13,5 +13,14 @@ allprojects {
     repositories {
         jcenter()
         google()
+        maven {
+            url "https://repo.situm.es/artifactory/libs-release-local"
+        }
     }
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

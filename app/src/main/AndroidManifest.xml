@@ -6,13 +6,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
+
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        >
+        android:usesCleartextTraffic="true">
         <activity
             android:name="com.login_signup_screendesign_demo.MainActivity"
             android:label="@string/app_name" >
@@ -24,6 +29,32 @@
         <activity android:name=".MenuActivity"/>
         <activity android:name=".NoticeActivity"/>
         <activity android:name=".ContentActivity"/>
-    </application>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="es.situm.maps.API_USER"
+            android:value="@string/situm_credentials_api_user" />
+        <meta-data
+            android:name="es.situm.maps.API_KEY"
+            android:value="@string/situm_credentials_api_key" />
+
+        <activity
+            android:name="com.login_signup_screendesign_demo.list.MainYunhwanActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.login_signup_screendesign_demo.samples.ActivitySampleDashboardTheme"
+            android:screenOrientation="portrait" />
+    </application>
 </manifest>

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.login_signup_screendesign_demo.api.IntelliSApi;
 import com.login_signup_screendesign_demo.api.NetworkUtil;
+import com.login_signup_screendesign_demo.list.MainYunhwanActivity;
 import com.login_signup_screendesign_demo.models.IntellisPost;
 import com.login_signup_screendesign_demo.utils.ListViewAdapter;
 
@@ -58,10 +59,12 @@ public class MenuActivity extends AppCompatActivity {
                         fragmentTransaction.replace(R.id.frameLayout, notificationFragment).commitAllowingStateLoss();
                         break;
                     case R.id.map:
-                        break;
-                    case R.id.home:
                         Intent myIntent = new Intent(getApplicationContext(), MenuActivity.class);
                         startActivity(myIntent);
+                        break;
+                    case R.id.home:
+                        Intent intent = new Intent(getApplicationContext(), MainYunhwanActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.mypage:
                         fragmentTransaction.replace(R.id.frameLayout, mypageFragment).commitAllowingStateLoss();
