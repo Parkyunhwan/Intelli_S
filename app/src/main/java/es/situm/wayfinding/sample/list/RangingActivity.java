@@ -1,6 +1,7 @@
 package es.situm.wayfinding.sample.list;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.icu.text.Edits;
 import android.os.RemoteException;
@@ -59,7 +60,16 @@ public class RangingActivity extends AppCompatActivity  implements BeaconConsume
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
-        tvResponse = (TextView) findViewById(R.id.tvResponse);
+        tvResponse = (TextView)findViewById(R.id.tvResponse);
+
+        Button button = (Button)findViewById(R.id.button) ;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HttpAsyncTask httpTask = new HttpAsyncTask(RangingActivity.this);
+                httpTask.execute("http://192.168.137.1:8080/app/beacon/open", "AJOJOJEOJDLJOE", "1", "22");
+            }
+        });
 
         beaconManager = BeaconManager.getInstanceForApplication(this);
         //getBeaconParsers() = 활성 비콘 파서 목록을 가져옴
@@ -163,10 +173,11 @@ public class RangingActivity extends AppCompatActivity  implements BeaconConsume
             httpCon.setRequestProperty("Content-type", "application/json");
 
             // OutputStream으로 POST 데이터를 넘겨주겠다는 옵션.
+            Log.i(TAG2, json);
             httpCon.setDoOutput(true);
             // InputStream으로 서버로 부터 응답을 받겠다는 옵션.
             httpCon.setDoInput(true);
-
+            Log.i(TAG2, "Post message to server");
             OutputStream os = httpCon.getOutputStream();
             os.write(json.getBytes("euc-kr"));
             os.flush();
@@ -231,10 +242,10 @@ public class RangingActivity extends AppCompatActivity  implements BeaconConsume
         protected String doInBackground(String... urls) {
             JSONObject jsonObject = new JSONObject();
             try {
-
-                jsonObject.accumulate("UUID", urls[1]);
-                jsonObject.accumulate("MAJOR", urls[2]);
-                jsonObject.accumulate("MINOR", urls[3]);
+                Log.i(TAG2, "abcdefg"+urls[0]+urls[1]+urls[2]+urls[3]);
+                jsonObject.accumulate("uuid", urls[1]);
+                jsonObject.accumulate("major", urls[2]);
+                jsonObject.accumulate("minor", urls[3]);
 
 
             } catch (JSONException e) {
