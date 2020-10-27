@@ -16,13 +16,12 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/gotham"
+            android:fontFamily="@font/masque"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/smart_building"
+            android:text="@string/IntelliS"
             android:textColor="@color/white_greyish"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textSize="45sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -30,9 +29,9 @@
             android:fontFamily="@font/calibri"
             android:gravity="center"
 
-            android:text="Smart System Software"
+            android:text="@string/smart_building"
             android:textColor="#9affffff"
-            android:textSize="10sp" />
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/login_emailid"

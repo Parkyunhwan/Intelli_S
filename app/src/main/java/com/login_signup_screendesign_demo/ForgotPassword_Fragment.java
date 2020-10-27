@@ -1,8 +1,6 @@
 package com.login_signup_screendesign_demo;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.login_signup_screendesign_demo.api.NetworkUtil;
 import com.login_signup_screendesign_demo.models.Response;
 import com.login_signup_screendesign_demo.utils.Utils;
 
@@ -26,8 +23,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import retrofit2.adapter.rxjava.HttpException;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 public class ForgotPassword_Fragment extends Fragment implements OnClickListener{
@@ -56,10 +51,10 @@ public class ForgotPassword_Fragment extends Fragment implements OnClickListener
 		return view;
 	}
 
-	public void onAttach(Context context) {
-		super.onAttach((Activity) context);
-		mListener = (MainActivity)context;
-	}
+	//public void onAttach(Context context) {
+	//	super.onAttach((Activity) context);
+	//	mListener = (MainActivity)context;
+//	}
 
 	// Initialize the views
 	private void initViews() {
@@ -139,10 +134,10 @@ public class ForgotPassword_Fragment extends Fragment implements OnClickListener
 
 	private void resetPasswordInitProgress(String email) {
 
-		mSubscriptions.add(NetworkUtil.getRetrofit().resetPasswordInit(email)
+	/*	mSubscriptions.add(NetworkUtil.getRetrofit().resetPasswordInit(email)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleResponse,this::handleError));
+				.subscribe(this::handleResponse,this::handleError));*/
 	}
 
 	private void handleResponse(Response response) {

@@ -22,6 +22,9 @@
     <string name="registered_emailid">이메일 아이디를 입력하세요:</string>
     <string name="submit">다음</string>
     <string name="back">돌아가기</string>
-    <string name="smart_building">Smart Building</string>
-
+    <string name="notice">공지사항</string>
+    <string name="smart_building">Smart Building Application</string>
+    <string name="IntelliS">IntelliS</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

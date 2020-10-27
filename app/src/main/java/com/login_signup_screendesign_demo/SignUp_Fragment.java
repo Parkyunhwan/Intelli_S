@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.login_signup_screendesign_demo.api.NetworkUtil;
 import com.login_signup_screendesign_demo.models.Response;
 import com.login_signup_screendesign_demo.models.User;
 import com.login_signup_screendesign_demo.utils.Utils;
@@ -30,8 +29,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import retrofit2.HttpException;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 public class SignUp_Fragment extends Fragment implements OnClickListener {
@@ -155,10 +152,10 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
 	}
 	private void registerProcess(User user) {
 
-		mSubscriptions.add(NetworkUtil.getRetrofit().register(user)
+	/*	mSubscriptions.add(NetworkUtil.getRetrofit().register(user)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleResponse,this::handleError));
+				.subscribe(this::handleResponse,this::handleError));*/
 	}
 
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
