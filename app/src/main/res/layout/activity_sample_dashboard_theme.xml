@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <es.situm.wayfinding.SitumMapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:situm_search_view_placeholder="@string/search_placeholder"
+        app:situm_use_dashboard_theme="true"
+        app:situm_active_building_id="@string/one_building_mode_building_id"
+        app:situm_enable_autostart_positioning="true"
+        app:situm_enable_one_building_mode="false"
+        app:situm_has_search_view="true" />
+
+</android.support.constraint.ConstraintLayout>
