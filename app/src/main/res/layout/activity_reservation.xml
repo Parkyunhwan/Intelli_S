@@ -1,15 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="8dp"
+    tools:layout_editor_absoluteY="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <DatePicker
-        android:id="@+id/dataPicker"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:datePickerMode="spinner"
-        android:calendarViewShown="false"/>
+        android:onClick="OnClickHandler"
+        android:text="예약 날짜 선택"
+        tools:ignore="HardcodedText" />
 
-</RelativeLayout>
+    <TextView
+    android:id="@+id/textView_date"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:text="날짜 정보" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="664dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonStartTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="OnClickHandler"
+            android:text="시작 시간"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView_Starttime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="시작 정보" />
+
+        <Button
+            android:id="@+id/buttonEndTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="OnClickHandler"
+            android:text="종료 시간"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView_Endtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="종료 정보" />
+
+        <EditText
+            android:id="@+id/TextBno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="예약할 빌딩 번호를 입력하세요. "
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/TextRno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:hint="예약할 회의실 번호를 입력하세요."
+            android:inputType="numberDecimal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="385dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <Button
+            android:id="@+id/buttonReservation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="예약 하기" />
+
+    </LinearLayout>
+</LinearLayout>
+
