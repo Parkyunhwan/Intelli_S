@@ -16,6 +16,7 @@ import com.login_signup_screendesign_demo.api.IntelliSApi;
 import com.login_signup_screendesign_demo.api.NetworkUtil;
 import com.login_signup_screendesign_demo.list.MainYunhwanActivity;
 import com.login_signup_screendesign_demo.models.IntellisPost;
+import com.login_signup_screendesign_demo.samples.ActivitySampleDashboardTheme;
 import com.login_signup_screendesign_demo.utils.ListViewAdapter;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class MenuActivity extends AppCompatActivity {
                         fragmentTransaction.replace(R.id.frameLayout, notificationFragment).commitAllowingStateLoss();
                         break;
                     case R.id.map:
-                        Intent myIntent = new Intent(getApplicationContext(), MenuActivity.class);
+                        Intent myIntent = new Intent(getApplicationContext(), ActivitySampleDashboardTheme.class);
                         startActivity(myIntent);
                         break;
                     case R.id.home:

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.login_signup_screendesign_demo.R;
-
 //import es.situm.wayfinding.sample.R;
 
 public class ActivitySampleDashboardTheme extends AppCompatActivity {

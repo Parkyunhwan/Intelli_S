@@ -2,33 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.login_signup_screendesign_demo"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <application
 
+    <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-     >
+        android:theme="@style/AppTheme">
+        <activity android:name=".list.ReservationActivity"></activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity"/>
-        <activity android:name=".NoticeActivity"/>
-        <activity android:name=".ContentActivity"/>
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".NoticeActivity" />
+        <activity android:name=".ContentActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -36,16 +38,16 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyC5FdV9lqp8SEw_IW9Bari0smLZISTx8os" />
         <meta-data
             android:name="es.situm.maps.API_USER"
-            android:value="@string/situm_credentials_api_user" />
+            android:value="pyh8618@gmail.com" />
         <meta-data
             android:name="es.situm.maps.API_KEY"
-            android:value="@string/situm_credentials_api_key" />
+            android:value="336b78c28e88659d9d8dd08557c435a701aeaf2da5cb8b1b65a11322a55b3145" />
 
         <activity
-            android:name="com.login_signup_screendesign_demo.list.MainYunhwanActivity"
+            android:name=".list.MainYunhwanActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -54,11 +56,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".list.RangingActivity"></activity>
         <activity
-            android:name="com.login_signup_screendesign_demo.list.RangingActivity">
-        </activity>
-        <activity
-            android:name="com.login_signup_screendesign_demo.samples.ActivitySampleDashboardTheme"
+            android:name=".samples.ActivitySampleDashboardTheme"
             android:screenOrientation="portrait" />
     </application>
+
 </manifest>

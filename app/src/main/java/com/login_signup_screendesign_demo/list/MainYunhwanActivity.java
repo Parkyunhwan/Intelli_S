@@ -2,13 +2,20 @@ package com.login_signup_screendesign_demo.list;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.support.v4.app.FragmentTransaction;
 
+import com.login_signup_screendesign_demo.Mypage_Fragment;
+import com.login_signup_screendesign_demo.Notification_Fragment;
 import com.login_signup_screendesign_demo.R;
+import com.login_signup_screendesign_demo.Settings_Fragment;
 import com.login_signup_screendesign_demo.samples.ActivitySampleDashboardTheme;
 
 //import es.situm.wayfinding.sample.R;
@@ -16,43 +23,28 @@ import com.login_signup_screendesign_demo.samples.ActivitySampleDashboardTheme;
 
 public class MainYunhwanActivity extends AppCompatActivity implements ViewHolderHelper.OnSampleClickListener {
     protected static final String TAG = "MainActivity";
-    private RecyclerView mRecyclerView;
-    private ViewHolderHelper mSamplesList;
+//    private RecyclerView mRecyclerView;
+//    private ViewHolderHelper mSamplesList;
+
     private static final int PERMISSION_REQUEST_COARSE_LOCATION=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            // Android M Permission check 
-//            if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                builder.setTitle("This app needs location access");
-//                builder.setMessage("Please grant location access so this app can detect beacons.");
-//                builder.setPositiveButton(android.R.string.ok, null);
-//                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                    @Override
-//                    public void onDismiss(DialogInterface dialog) {
-//                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
-//                    }
-//                });
-//                builder.show();
-//            }
-//        }
         setContentView(R.layout.activity_yunhwan_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mRecyclerView = findViewById(R.id.samples_recycler_view);
-        mSamplesList = new ViewHolderHelper();
-        mSamplesList.init(this, mRecyclerView, this);
+//        mRecyclerView = findViewById(R.id.samples_recycler_view);
+//        mSamplesList = new ViewHolderHelper();
+//        mSamplesList.init(this, mRecyclerView, this);
 
 //        mSamplesList.addItem(R.string.situm_sample_title_simple_map, ActivitySampleSimpleMap.class);
 //        mSamplesList.addItem(R.string.situm_sample_title_log_events, ActivitySampleLogEvents.class);
 //        mSamplesList.addItem(R.string.situm_sample_title_delegate_back_events, ActivitySampleDelegateBackEvents.class);
 //        mSamplesList.addItem(R.string.situm_sample_title_library, ActivitySampleUsingLibrary.class);
 //        mSamplesList.addItem(R.string.situm_sample_title_no_search_view, ActivitySampleNoSearchView.class);
-        mSamplesList.addItem(R.string.situm_sample_title_dashboard_theme, ActivitySampleDashboardTheme.class);
+//        mSamplesList.addItem(R.string.situm_sample_title_dashboard_theme, ActivitySampleDashboardTheme.class);
 //        mSamplesList.addItem(R.string.situm_sample_title_interceptors, ActivitySampleCustomizeRequests.class);
 //        mSamplesList.addItem(R.string.situm_sample_title_one_building_mode, ActivitySampleOneBuildingMode.class);
 //        mSamplesList.addItem(R.string.situm_sample_title_autostart_positioning, ActivitySampleAutostartPositioning.class);
@@ -63,6 +55,14 @@ public class MainYunhwanActivity extends AppCompatActivity implements ViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainYunhwanActivity.this, RangingActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button reservation = (Button) findViewById(R.id.reservation) ;
+        reservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainYunhwanActivity.this, ReservationActivity.class);
                 startActivity(intent);
             }
         });

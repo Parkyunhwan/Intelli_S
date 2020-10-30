@@ -25,7 +25,7 @@
     <string name="notice">공지사항</string>
     <string name="smart_building">Smart Building Application</string>
     <string name="IntelliS">IntelliS</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">Situm Maps Samples</string>
     <string name="search_placeholder">Search with Wayfinding</string>

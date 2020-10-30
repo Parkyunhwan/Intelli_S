@@ -45,12 +45,12 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/reservation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:layout_gravity="center"
-                android:text="세미나실 예약" />
+                android:text="회의실 예약" />
 
         </LinearLayout>
         <LinearLayout
@@ -78,6 +78,12 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        app:layout_anchor="@+id/samples_recycler_view"
+        app:layout_anchorGravity="bottom|center"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
