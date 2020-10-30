@@ -59,6 +59,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".list.ReservationActivity" />
+        <activity
+            android:name="com.login_signup_screendesign_demo.list.RangingActivity">
+        </activity>
     </application>
 
 </manifest>
