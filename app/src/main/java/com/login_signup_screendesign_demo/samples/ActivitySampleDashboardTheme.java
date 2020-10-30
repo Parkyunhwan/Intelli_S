@@ -1,7 +1,7 @@
 package com.login_signup_screendesign_demo.samples;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.login_signup_screendesign_demo.R;
 //import es.situm.wayfinding.sample.R;
