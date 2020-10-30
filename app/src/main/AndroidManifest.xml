@@ -47,21 +47,18 @@
             android:value="336b78c28e88659d9d8dd08557c435a701aeaf2da5cb8b1b65a11322a55b3145" />
 
         <activity
-            android:name=".list.MainYunhwanActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:name=".list.MainYunhwanActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".samples.ActivitySampleDashboardTheme"
             android:screenOrientation="portrait" />
-        <activity 
-            android:name=".list.ReservationActivity"
-            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".list.ReservationActivity" />
     </application>
 
 </manifest>
