@@ -1,6 +1,10 @@
 package com.login_signup_screendesign_demo;
 
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import androidx.fragment.app.Fragment;
+>>>>>>> fa09d78ffeb57fa5657ae85dddbd00c23ca6ab09
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

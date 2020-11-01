@@ -2,6 +2,10 @@ package com.login_signup_screendesign_demo;
 
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import androidx.appcompat.app.AppCompatActivity;
+>>>>>>> fa09d78ffeb57fa5657ae85dddbd00c23ca6ab09
 import android.widget.TextView;
 
 import com.login_signup_screendesign_demo.api.IntelliSApi;
