@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home"
         android:icon = "@drawable/home"
+        app:showAsAction="ifRoom"
         android:title = "홈" />
     <item
         android:id="@+id/notification"
         android:icon = "@drawable/bell"
+        app:showAsAction="ifRoom"
         android:title = "알림" />
 
     <item
         android:id="@+id/map"
         android:icon = "@drawable/placeholder"
+        app:showAsAction="ifRoom"
         android:title = "실내지도" />
 
     <item
         android:id="@+id/mypage"
         android:icon = "@drawable/user"
+        app:showAsAction="ifRoom"
         android:title = "마이페이지" />
     <item
         android:id="@+id/settings"
         android:icon = "@drawable/settings"
+        app:showAsAction="ifRoom"
         android:title = "설정" />
 </menu>

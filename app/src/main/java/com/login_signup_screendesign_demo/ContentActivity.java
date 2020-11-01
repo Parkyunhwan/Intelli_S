@@ -2,10 +2,11 @@ package com.login_signup_screendesign_demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.login_signup_screendesign_demo.api.IntelliSApi;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ContentActivity extends AppCompatActivity {
     private IntelliSApi intellisApi;
