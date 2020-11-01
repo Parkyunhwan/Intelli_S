@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "145061995224",
+    "firebase_url": "https://intelli-s.firebaseio.com",
+    "project_id": "intelli-s",
+    "storage_bucket": "intelli-s.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145061995224:android:699bba7b89bc9b5fb2adad",
+        "android_client_info": {
+          "package_name": "com.login_signup_screendesign_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145061995224-2ltno2kcviadr48umtlqa1npgij0n5kf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDonrkKf8IkYID0AgxSHsPADhe6_fZQB5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145061995224-2ltno2kcviadr48umtlqa1npgij0n5kf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

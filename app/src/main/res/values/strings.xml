@@ -72,4 +72,8 @@
     <string name="tab_title_time">Time</string>
     <string name="tab_title_date">Date</string>
     <string name="tab_title_datetime">Date+Time</string>
+
+    <!-- FCM -->
+    <string name="default_notification_channel_id">Channel ID</string>
+    <string name="default_notification_channel_name" translatable="true">Notification</string>
 </resources>

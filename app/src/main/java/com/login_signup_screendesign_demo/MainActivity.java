@@ -5,9 +5,18 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.login_signup_screendesign_demo.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +27,17 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		fragmentManager = getSupportFragmentManager();
+
+		//FCM token
+		FirebaseApp.initializeApp(this);
+		try{
+			String token = FirebaseInstanceId.getInstance().getToken();
+			Log.d("MsgService", "device token : " + token);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+
+
 
 		// If savedinstnacestate is null then replace login fragment
 		if (savedInstanceState == null) {
