@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.login_signup_screendesign_demo.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+
+
 
 		// If savedinstnacestate is null then replace login fragment
 		if (savedInstanceState == null) {

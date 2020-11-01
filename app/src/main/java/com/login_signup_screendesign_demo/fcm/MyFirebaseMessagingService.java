@@ -22,7 +22,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.d(TAG, "New token: " + s);
+        Log.d(TAG, "device token: " + s);
     }
 
     @Override
