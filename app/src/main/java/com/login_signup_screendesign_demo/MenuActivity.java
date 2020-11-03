@@ -24,14 +24,13 @@ public class MenuActivity extends AppCompatActivity {
     Mypage_Fragment mypageFragment = new Mypage_Fragment();
     Settings_Fragment settingsFragment = new Settings_Fragment();
     HomeFragment homeFragment = new HomeFragment();
-
+    private int bid = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
-
         if (savedInstanceState == null) {
             fragmentManager
                     .beginTransaction()

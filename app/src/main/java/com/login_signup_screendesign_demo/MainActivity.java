@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		fragmentManager = getSupportFragmentManager();
-
 		//FCM token
 		FirebaseApp.initializeApp(this);
 		try{
@@ -36,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-
-
 
 		// If savedinstnacestate is null then replace login fragment
 		if (savedInstanceState == null) {

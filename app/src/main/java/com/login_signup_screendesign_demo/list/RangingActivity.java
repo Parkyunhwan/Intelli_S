@@ -3,6 +3,7 @@ package com.login_signup_screendesign_demo.list;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -43,14 +44,32 @@ import java.util.List;
 
 //import es.situm.wayfinding.sample.R;
 
-// //  //  // / / / /
+// //  //  // / / / /573 578 5782 5787 5761
 
 public class RangingActivity extends AppCompatActivity implements BeaconConsumer {
     protected static final String TAG1 = "::MonitoringActivity::";
     protected static final String TAG2 = "::RangingActivity::";
     private BeaconManager beaconManager;
     static  String strJson = "";
+    String major="1";
+    String minor="22";
+    String uuid="24ddf411-8cf1-440c-87cd-e368daf9c93e";
+    Boolean flag = false;
     TextView tvResponse;
+    int Bid = 0; // 전역변수!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    //public int[] BuildingTextID = {R.id.room1,R.id.room2,R.id.room3};
+    public String[] BuildingName = {"형남공학관","문화관","중앙도서관"};
+    public String[][] RoomName = {{"424","522","525"},{"소프트웨어실습실","하드웨어실습실","541"},{"101","102","401"}};
+    TextView tv1;
+    TextView tv2;
+    TextView tv3;
+    Button button1;
+    Button button2;
+    Button button3;
+    boolean flag1 = true;
+    boolean flag2 = true;
+    boolean flag3 = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -58,14 +77,41 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
-        tvResponse = (TextView)findViewById(R.id.tvResponse);
+        //tvResponse = (TextView)findViewById(R.id.tvResponse); check
+        TextView bn = (TextView)findViewById(R.id.bname);
+        bn.setText(BuildingName[Bid] +" " + "회의실");
+        tv1 = (TextView)findViewById(R.id.text1);
+        tv2 = (TextView)findViewById(R.id.text2);
+        tv3 = (TextView)findViewById(R.id.text3);
+        button1 = (Button)findViewById(R.id.button1);
+        button2 = (Button)findViewById(R.id.button2);
+        button3 = (Button)findViewById(R.id.button3);
 
-        Button button = (Button)findViewById(R.id.button) ;
-        button.setOnClickListener(new View.OnClickListener() {
+        //Button button1 = (Button)findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 HttpAsyncTask httpTask = new HttpAsyncTask(RangingActivity.this);
-                httpTask.execute("http://192.168.137.1:8080/app/beacon/open", "AJOJOJEOJDLJOE", "1", "22");
+                httpTask.execute("http://192.168.137.1:8080/app/beacon/open/" + Integer.toString(Bid), uuid, "801", "5761");
+                Log.i(TAG2, "send - message");
+            }
+        });
+        //Button button2 = (Button)findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HttpAsyncTask httpTask = new HttpAsyncTask(RangingActivity.this);
+                httpTask.execute("http://192.168.137.1:8080/app/beacon/open/" + Integer.toString(Bid), uuid, "801", "578");
+                Log.i(TAG2, "send - message");
+            }
+        });
+        //Button button3 = (Button)findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HttpAsyncTask httpTask = new HttpAsyncTask(RangingActivity.this);
+                httpTask.execute("http://192.168.137.1:8080/app/beacon/open/" + Integer.toString(Bid), uuid,"801", "5782");
+                Log.i(TAG2, "send - message");
             }
         });
 
@@ -114,11 +160,15 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
         });
 
         //범위한정 알림을 추가한다
+
         beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override
             //눈에 보이는 비콘에 대한 mDistance(major 또는 minor와의 거리를 뜻하는)의 추정치를 제공하기 위해 초당 한 번 호출
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 List<Beacon> list = (List<Beacon>)beacons;
+                flag1 = false;
+                flag2 = false;
+                flag3 = false;
                 if (beacons.size() > 0) {
                     for (Beacon B : list) {
                         //Log.i(TAG2, "Beacon : " + B + ":::");
@@ -126,14 +176,54 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
                         Log.i(TAG2, ":::::This :: U U I D :: of beacon   :  " + B.getId1().toString() + ":::::");
                         Log.i(TAG2, ":::::This ::M a j o r:: of beacon   :  " + B.getId2().toString() + ":::::");
                         Log.i(TAG2, ":::::This ::M i n o r:: of beacon   :  " + B.getId3().toString() + ":::::");
-
                         // 통신 코드
-                        if(B.getDistance() < 2.0) {
-                            HttpAsyncTask httpTask = new HttpAsyncTask(RangingActivity.this);
-                            httpTask.execute("http://hmkcode.appspot.com/jsonservlet", B.getId1().toString(), B.getId2().toString(), B.getId3().toString());
+                        if(B.getDistance() < 4.0) {
+                            uuid = B.getId1().toString();
+                            major = B.getId2().toString();
+                            minor = B.getId3().toString();
+                            BeaconFlagSet(Integer.parseInt(B.getId3().toString()));
+//                            if (flag) {
+//                                HttpAsyncTask httpTask = new HttpAsyncTask(RangingActivity.this);
+//                                httpTask.execute("http://hmkcode.appspot.com/jsonservlet", B.getId1().toString(), B.getId2().toString(), B.getId3().toString());
+//                            }
                             // 문 개폐 일정거리 정해놓고 서버로 보냄
                         }
+                        else{
+                            if (B.getId3().toString().equals("5761")) {
+                                flag1 = true;
+                                button1.setEnabled(false);
+                                button1.setBackgroundColor(Color.parseColor("#999999"));
+                                tv1.setBackgroundColor(Color.RED);
+                            }
+                            else if (B.getId3().toString().equals("578")) {
+                                flag2 = true;
+                                button2.setEnabled(false);
+                                button2.setBackgroundColor(Color.parseColor("#999999"));
+                                tv2.setBackgroundColor(Color.RED);
+                            }
+                            else if (B.getId3().toString().equals("5782")) {
+                                flag3 = true;
+                                button3.setEnabled(false);
+                                button3.setBackgroundColor(Color.parseColor("#999999"));
+                                tv3.setBackgroundColor(Color.RED);
+                            }
+                        }
                     }
+                }
+                if (!flag1){
+                    button1.setEnabled(false);
+                    button1.setBackgroundColor(Color.parseColor("#999999"));
+                    tv1.setBackgroundColor(Color.RED);
+                }
+                else if (!flag2){
+                    button2.setEnabled(false);
+                    button2.setBackgroundColor(Color.parseColor("#999999"));
+                    tv2.setBackgroundColor(Color.RED);
+                }
+                else if (!flag3){
+                    button3.setEnabled(false);
+                    button3.setBackgroundColor(Color.parseColor("#999999"));
+                    tv3.setBackgroundColor(Color.RED);
                 }
             }
         });
@@ -259,10 +349,11 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
             rangAct.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(rangAct, "Received!", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(rangAct, "Received!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RangingActivity.this, "Received!", Toast.LENGTH_SHORT).show();
                     try {
                         JSONArray json = new JSONArray(strJson);
-                        rangAct.tvResponse.setText(json.toString(1));
+                        //rangAct.tvResponse.setText(json.toString(1)); check
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -291,6 +382,33 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
 
         inputStream.close();
         return result;
+
+    }
+    void BeaconFlagSet(Integer id){
+        //573 578 5782 5787 5761 // 0 1 2 3 4 5
+        if (id == 5761){
+            flag1 = true;
+            tv1.setBackgroundColor(Color.BLUE);
+            tv1.setText(RoomName[Bid][0]+ " " + "회의실");
+            button1.setEnabled(true);
+            button1.setBackgroundColor(Color.parseColor("#017488"));
+        }
+        else if (id == 578){
+            flag2 = true;
+            tv2.setBackgroundColor(Color.BLUE);
+            tv2.setText(RoomName[Bid][1]+ " " + "회의실");
+            button2.setEnabled(true);
+            button2.setBackgroundColor(Color.parseColor("#017488"));
+        }
+        else if (id == 5782){
+            flag3 = true;
+            tv3.setBackgroundColor(Color.BLUE);
+            tv3.setText(RoomName[Bid][2]+ " " + "회의실");
+            button3.setEnabled(true);
+            button3.setBackgroundColor(Color.parseColor("#017488"));
+        }
+
+
 
     }
 }
