@@ -93,7 +93,7 @@ public class AlarmActivity extends AppCompatActivity {
                     for(int i = 0; i < response.length(); i++) {
                         String title = response.getJSONObject(i).getString("title");
                         String content = response.getJSONObject(i).getString("content");
-                        listItem.add(title + "\n" + content);
+                        listItem.add(0, title + "\n" + content);
                         adapter.notifyDataSetChanged();
                     }
 
