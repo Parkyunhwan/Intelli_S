@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".utils.AlarmActivity"></activity>
+        <activity android:name=".AlarmActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -57,12 +57,12 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".list.MainYunhwanActivity"></activity>
+        <activity android:name=".list.MainYunhwanActivity" />
         <activity
             android:name=".samples.ActivitySampleDashboardTheme"
             android:screenOrientation="portrait" />
         <activity android:name=".list.ReservationActivity" />
-        <activity android:name=".list.RangingActivity"></activity>
+        <activity android:name=".list.RangingActivity" />
     </application>
 
 </manifest>

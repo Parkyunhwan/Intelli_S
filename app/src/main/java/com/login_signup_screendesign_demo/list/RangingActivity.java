@@ -60,7 +60,7 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
     int Bid = 0; // 전역변수!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //public int[] BuildingTextID = {R.id.room1,R.id.room2,R.id.room3};
     public String[] BuildingName = {"형남공학관","문화관","중앙도서관"};
-    public String[][] RoomName = {{"424","522","525"},{"소프트웨어실습실","하드웨어실습실","541"},{"101","102","401"}};
+    public String[][] RoomName = {{"424","522","1101"},{"소프트웨어실습실","하드웨어실습실","541"},{"101","102","401"}};
     TextView tv1;
     TextView tv2;
     TextView tv3;

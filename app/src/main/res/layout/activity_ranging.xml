@@ -21,7 +21,8 @@
         android:padding="4dp"
         android:text="형남공학관 회의실"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"></TextView>
+        android:textColor="#FFFFFF">
+    </TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -97,7 +98,7 @@
             android:background="#68615E"
             android:gravity="center"
             android:padding="4dp"
-            android:text="522호 회의실"
+            android:text=""
             android:textAlignment="center"
             android:textColor="#FFFFFF"></TextView>
 
@@ -135,7 +136,7 @@
             android:background="#68615E"
             android:gravity="center"
             android:padding="4dp"
-            android:text="424호 회의실"
+            android:text=""
             android:textAlignment="center"
             android:textColor="#FFFFFF">
 
@@ -175,7 +176,7 @@
             android:background="#68615E"
             android:gravity="center"
             android:padding="4dp"
-            android:text="525호 회의실"
+            android:text=""
             android:textAlignment="center"
             android:textColor="#FFFFFF">
 

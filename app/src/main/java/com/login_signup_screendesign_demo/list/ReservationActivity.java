@@ -65,7 +65,7 @@ public class ReservationActivity extends AppCompatActivity {
     // 형남, 문화, 중앙
     public int[] BuildingTextID = {R.id.room1,R.id.room2,R.id.room3};
     public String[] BuildingName = {"형남공학관","문화관","중앙도서관"};
-    public String[][] RoomName = {{"424","522","525","- 회의실 선택 -"},{"소프트웨어실습실","하드웨어실습실","541","- 회의실 선택 -"},{"101","201","302","- 회의실 선택 -"}};
+    public String[][] RoomName = {{"424","522","1101","- 회의실 선택 -"},{"소프트웨어실습실","하드웨어실습실","541","- 회의실 선택 -"},{"101","201","302","- 회의실 선택 -"}};
 
     Spinner spiner;
     Spinner spiner2;
