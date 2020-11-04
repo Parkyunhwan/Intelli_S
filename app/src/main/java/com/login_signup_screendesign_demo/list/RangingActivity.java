@@ -358,7 +358,7 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
         protected String doInBackground(String... urls) {
             JSONObject jsonObject = new JSONObject();
             try {
-                Log.i(TAG2, "abcdefg"+urls[0]+urls[1]+urls[2]+urls[3]);
+                Log.i(TAG2, urls[0]+urls[1]+urls[2]+urls[3]);
                 jsonObject.accumulate("uuid", urls[1]);
                 jsonObject.accumulate("major", urls[2]);
                 jsonObject.accumulate("minor", urls[3]);
@@ -378,7 +378,7 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
                 @Override
                 public void run() {
                     //Toast.makeText(rangAct, "Received!", Toast.LENGTH_LONG).show();
-                    Toast.makeText(RangingActivity.this, "Received!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RangingActivity.this, "Received!", Toast.LENGTH_SHORT).show();
                     try {
                         JSONArray json = new JSONArray(strJson);
                         //rangAct.tvResponse.setText(json.toString(1)); check
