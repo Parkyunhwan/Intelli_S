@@ -28,9 +28,14 @@ public class NoticeActivity extends AppCompatActivity {
     private ListViewAdapter listAdapter;
     private List<String> list;
     private List<String> textlist;
+    private List<String> titlelist;
+    private List<String> updatedatelist;
     ListView listView;
+
     Integer id;
     String text;
+    String title;
+    String updateDatelist;
     //List<Integer>idarr = new ArrayList<Integer>();
 
     @Override
@@ -50,19 +55,36 @@ public class NoticeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ContentActivity.class);
                 //id = idarr.get(i);
                 text = textlist.get(i);
+                title = titlelist.get(i);
+                updateDatelist = updatedatelist.get(i);
+                intent.putExtra("title",title);
                 intent.putExtra("text",text);
+                intent.putExtra("updatedate",updateDatelist);
+
                 startActivity(intent);
                 finish();
             }
         });
 
+        findViewById(R.id.backicon).setOnClickListener(
+                new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg0) {
+                        Intent myIntent = new Intent(getApplicationContext(), MenuActivity.class);
+                        startActivity(myIntent);
+
+                    }
+                });
+
     }
 
 
     private void getPosts(){
-
+        titlelist = new ArrayList<>();
         list = new ArrayList<>();
-
+        textlist = new ArrayList<>();
+        updatedatelist= new ArrayList<>();
         Map<String, String> parameters = new HashMap<>();
         int bno =2;
         //parameters.put("_sort","id");
@@ -81,12 +103,14 @@ public class NoticeActivity extends AppCompatActivity {
                 List<IntellisPost> posts = response.body();
                 for (IntellisPost post : posts) {
                     String content = "";
-                    content += "ID:" + post.getId() + "\n";
-                    content += "Writer: " + post.getWriter() + "\n";
-                    content += "Title:" + post.getTitle() + "\n";
+
+                    content += post.getTitle() + "\n";
+                  //  content += post.getUpdatetime() +"\n";
                     //   textViewResult.append(content);
                     list.add(content);
                     textlist.add(post.getContent());
+                    titlelist.add(post.getTitle());
+                    updatedatelist.add(post.getUpdatetime());
 
                 }
                 listAdapter = new ListViewAdapter((getApplicationContext()), list);

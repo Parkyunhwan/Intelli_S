@@ -170,7 +170,7 @@ public class Login_Fragment extends Fragment  {
 	private void loginProcess(String email, String password)
 	{
 
-		Intent intent = new Intent(getActivity(), MenuActivity.class);
+		Intent intent = new Intent(getActivity(), BuildingPick_Activity.class);
 		startActivity(intent);
 
 		/*	mSubscriptions.add(NetworkUtil.getRetrofit(email, password).login()

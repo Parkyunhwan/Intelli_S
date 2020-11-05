@@ -1,5 +1,6 @@
 package com.login_signup_screendesign_demo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -23,18 +24,30 @@ public class MenuActivity extends AppCompatActivity {
     Notification_Fragment notificationFragment = new Notification_Fragment();
     Mypage_Fragment mypageFragment = new Mypage_Fragment();
     Settings_Fragment settingsFragment = new Settings_Fragment();
-    HomeFragment homeFragment = new HomeFragment();
+ //   HomeFragment homeFragment = new HomeFragment();
     private int bid = 0;
+    int bno;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
+        Intent intent = getIntent();
+         bno = intent.getIntExtra("bno",0);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("bno",bno);
+        HomeFragment homefragment = new HomeFragment();
+        homefragment.setArguments(bundle);
+
+        System.out.println("Menu bno:"+bno);
+
         if (savedInstanceState == null) {
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.frameLayout, new HomeFragment(),
+                    .replace(R.id.frameLayout, homefragment,
                             Utils.Home_Fragment).commit();
         }
 
@@ -43,7 +56,7 @@ public class MenuActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View arg0) {
-                        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent myIntent = new Intent(getApplicationContext(), BuildingPick_Activity.class);
                         startActivity(myIntent);
 
                     }
@@ -70,15 +83,22 @@ public class MenuActivity extends AppCompatActivity {
                         break;
                     case R.id.home:
                         if (savedInstanceState == null) {
+
+                       //     Bundle bundle = new Bundle();
+                       //     bundle.putInt("bno",bno);
+                       //     homeFragment.setArguments(bundle);
+
+
                             fragmentManager
                                     .beginTransaction()
                                     .setCustomAnimations(R.anim.right_enter, R.anim.left_out)
-                                    .replace(R.id.frameLayout, new HomeFragment(),
+                                    .replace(R.id.frameLayout, homefragment,
                                             Utils.Home_Fragment).commit();
                         }
                         break;
                     case R.id.mypage:
                         if (savedInstanceState == null) {
+
                             fragmentManager
                                     .beginTransaction()
                                     .setCustomAnimations(R.anim.right_enter, R.anim.left_out)

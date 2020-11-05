@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backicon"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/masque"
+            android:gravity="center"
+            android:text="IntelliS "
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,20 +43,44 @@
         android:orientation="vertical"
         android:gravity ="center"
         android:fillViewport="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="55dp"
+        android:background="#F2F4F4 "
         android:id="@+id/scrollView">
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/layout"
+            android:layout_marginTop = "20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <TextView
-                android:id="@+id/textview"
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/update_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/button_selectorcolor"
                 android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

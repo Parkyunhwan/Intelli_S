@@ -17,7 +17,8 @@ public class MainYunhwanActivity extends AppCompatActivity implements ViewHolder
     protected static final String TAG = "MainActivity";
 //    private RecyclerView mRecyclerView;
 //    private ViewHolderHelper mSamplesList;
-
+Intent intent = getIntent();
+    private int bno = intent.getIntExtra("bno",0);
     private static final int PERMISSION_REQUEST_COARSE_LOCATION=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

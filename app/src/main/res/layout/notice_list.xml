@@ -1,15 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:padding="20dp" >
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backicon"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/masque"
+            android:gravity="center"
+            android:text="IntelliS "
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+
+<FrameLayout
+android:id = "@+id/frameLayout"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_marginTop="55dp"
+android:layout_marginBottom="?attr/actionBarSize"
+    >
 
     <TextView
-
+        android:background= "#F2F4F4 "
         android:id="@+id/notice"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:gravity="center"
         android:text="@string/notice"
         android:textColor="@color/black"
@@ -20,12 +60,20 @@
         android:id="@+id/listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
         android:cacheColorHint="#FFFFFF"
         android:dividerHeight="2dp"
         android:fastScrollEnabled="true"
         android:scrollbars="vertical" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
 
 
+    </LinearLayout>
+</FrameLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

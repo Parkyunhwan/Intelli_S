@@ -9,7 +9,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface IntelliSApi {
-    @GET("app/notice/list/{bno}?page=1")//url 다음에 나오는 부분
+   // @GET("app/notice/list/{bno}?page=1")//url 다음에 나오는 부분
+   @GET("app/notice/list/{bno}")
     Call<List<IntellisPost>> getPosts(
             @Path("bno") int postbno
     );

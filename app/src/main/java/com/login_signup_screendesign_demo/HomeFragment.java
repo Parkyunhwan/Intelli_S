@@ -36,10 +36,14 @@ public class HomeFragment extends Fragment {
     static private TextView morebutton2;
     static private TextView morebutton3;
     static private ImageView backbutton;
-
+    static private TextView buildingnumview;
+    int bno;
     public HomeFragment() {
+
+
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -47,6 +51,9 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Bundle args = getArguments();
+        bno = args.getInt("bno");
+        System.out.println("home fragment bno:"+bno);;
         initViews(view);
         Retrofit retrofit = NetworkUtil.getRetrofit();
         intellisApi = retrofit.create(IntelliSApi.class);
@@ -60,12 +67,22 @@ public class HomeFragment extends Fragment {
         morebutton2 = (TextView) v.findViewById(R.id.morebutton2);
         morebutton3 = (TextView) v.findViewById(R.id.morebutton3);
         backbutton = (ImageView) v.findViewById(R.id.backicon);
+        buildingnumview = (TextView) v.findViewById(R.id.buildingnumber);
+        String k ;
+        if(bno ==0 ){ k= "현재 위치는\n형남공학관 입니다";buildingnumview.setText(k);}
+        else if(bno ==1)
+        { k = "현재 위치는\n문화관 입니다"; buildingnumview.setText(k);}
+        else if (bno ==2){
+            k= "현재 위치는\n중앙도서관 입니다"; buildingnumview.setText(k);
+        }
+
         v.findViewById(R.id.morebutton).setOnClickListener(
                 new View.OnClickListener() {
 
                     @Override
                     public void onClick(View arg0) {
                         Intent myIntent = new Intent(getActivity(), NoticeActivity.class);
+                        myIntent.putExtra("bno",bno);
                         startActivity(myIntent);
 
                     }
@@ -76,7 +93,9 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onClick(View arg0) {
+
                         Intent myIntent = new Intent(getActivity(), ReservationActivity.class);
+                        myIntent.putExtra("bno",bno);
                         startActivity(myIntent);
 
                     }
@@ -87,6 +106,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View arg0) {
                         Intent myIntent = new Intent(getActivity(), RangingActivity.class);
+                        myIntent.putExtra("bno",bno);
                         startActivity(myIntent);
 
                     }
@@ -114,13 +134,8 @@ public class HomeFragment extends Fragment {
                 List<IntellisPost> posts = response.body();
                 for (IntellisPost post : posts) {
                     String content = "";
-
-                    content += "Writer: " + post.getWriter() + "\n";
-                    content += "Title:" + post.getTitle() + "\n";
-                    content += "bno:" + post.getBno() + "\n";
-                    content += "regtime:"+ post.getRegTime() + "\n";
-                    content += "updatetime:"+ post.getUpdatetime() + "\n";
-                    content += "content:"+ post.getContent() + "\n";
+                    content += post.getTitle() + "\n";
+                  //  content += post.getUpdatetime() + "\n";
                     //   textViewResult.append(content);
                     list.add(content);
 

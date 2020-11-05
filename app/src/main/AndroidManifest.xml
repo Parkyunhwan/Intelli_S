@@ -30,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name= ".BuildingPick_Activity"/>
         <activity android:name=".MenuActivity" />
         <activity android:name=".NoticeActivity" />
         <activity android:name=".ContentActivity" />

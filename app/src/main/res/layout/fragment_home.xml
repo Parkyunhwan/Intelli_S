@@ -51,7 +51,6 @@
                             android:layout_width="400dp"
                             android:layout_height="271dp"
                             android:gravity="center"
-                            android:text="현재 위치는 "
                             android:textColor="#FAF6F6"
                             android:textSize="30sp"
                             android:textStyle="bold" />
