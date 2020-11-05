@@ -69,13 +69,8 @@ public class MenuActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.notification:
-                        if (savedInstanceState == null) {
-                            fragmentManager
-                                    .beginTransaction()
-                                    .setCustomAnimations(R.anim.right_enter, R.anim.left_out)
-                                    .replace(R.id.frameLayout, notificationFragment,
-                                            Utils.Notification_Fragment).commit();
-                        }
+                        Intent AlarmIntent = new Intent(getApplicationContext(), AlarmActivity.class);
+                        startActivity(AlarmIntent);
                         break;
                     case R.id.map:
                         Intent myIntent = new Intent(getApplicationContext(), ActivitySampleDashboardTheme.class);

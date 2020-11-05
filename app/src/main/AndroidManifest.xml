@@ -13,14 +13,14 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".utils.BuildingID"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
-        android:name=".utils.BuildingID"
-        >
+        android:usesCleartextTraffic="true">
+        <activity android:name=".AlarmActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -48,29 +48,22 @@
         <meta-data
             android:name="es.situm.maps.API_KEY"
             android:value="336b78c28e88659d9d8dd08557c435a701aeaf2da5cb8b1b65a11322a55b3145" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id"/>
+            android:value="@string/default_notification_channel_id" />
 
-        <service
-            android:name=".fcm.MyFirebaseMessagingService">
+        <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".list.MainYunhwanActivity">
-        </activity>
+        <activity android:name=".list.MainYunhwanActivity" />
         <activity
             android:name=".samples.ActivitySampleDashboardTheme"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".list.ReservationActivity" />
-        <activity
-            android:name="com.login_signup_screendesign_demo.list.RangingActivity">
-        </activity>
+        <activity android:name=".list.ReservationActivity" />
+        <activity android:name=".list.RangingActivity" />
     </application>
 
 </manifest>

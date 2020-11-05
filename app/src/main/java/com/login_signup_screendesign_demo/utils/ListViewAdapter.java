@@ -34,7 +34,7 @@ public class ListViewAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        View v=View.inflate(context,R.layout.simple_list_item,null);
+        View v = View.inflate(context,R.layout.simple_list_item,null);
         TextView txt=(TextView)v.findViewById(R.id.txt) ;
         txt.setText(list.get(position));
         return v;

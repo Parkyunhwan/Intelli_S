@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Login and SignUp ScreenDesign Demo</string>
+    <string name="app_name">Itelli_S</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">설정</string>
     <string name="email">이메일 아이디</string>
@@ -41,7 +41,6 @@
     <string name="situm_sample_title_one_building_mode">One Building Mode</string>
     <string name="situm_sample_title_autostart_positioning">Start positioning automatically</string>
     <string name="situm_sample_title_customize_ui">Custom UI elements</string>
-
 
 
     <string name="selected_time">The time you picked will be shown here.</string>

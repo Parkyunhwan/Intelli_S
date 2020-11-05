@@ -47,6 +47,7 @@ import java.util.List;
 // //  //  // / / / /573 578 5782 5787 5761
 
 public class RangingActivity extends AppCompatActivity implements BeaconConsumer {
+
     protected static final String TAG1 = "::MonitoringActivity::";
     protected static final String TAG2 = "::RangingActivity::";
     private BeaconManager beaconManager;
@@ -59,7 +60,7 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
     int Bid = 0; // 전역변수!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //public int[] BuildingTextID = {R.id.room1,R.id.room2,R.id.room3};
     public String[] BuildingName = {"형남공학관","문화관","중앙도서관"};
-    public String[][] RoomName = {{"424","522","525"},{"소프트웨어실습실","하드웨어실습실","541"},{"101","102","401"}};
+    public String[][] RoomName = {{"424","522","1101"},{"소프트웨어실습실","하드웨어실습실","541"},{"101","102","401"}};
     TextView tv1;
     TextView tv2;
     TextView tv3;
@@ -86,8 +87,11 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
         button1 = (Button)findViewById(R.id.button1);
         button2 = (Button)findViewById(R.id.button2);
         button3 = (Button)findViewById(R.id.button3);
-
+        tv1.setText(RoomName[Bid][0] + " 호 회의실");
+        tv2.setText(RoomName[Bid][1] + " 호 회의실");
+        tv3.setText(RoomName[Bid][2] + " 호 회의실");
         //Button button1 = (Button)findViewById(R.id.button1);
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +151,27 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
             //비콘 Region이 보이지 않을 때 호출
             public void didExitRegion(Region region) {
                 Log.i(TAG1, ":비콘을 찾을 수 없음:");
+//                    button1.setEnabled(false);
+//                    button1.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv1.setBackgroundColor(Color.parseColor("#68615E"));
+//
+//                    button2.setEnabled(false);
+//                    button2.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv2.setBackgroundColor(Color.parseColor("#68615E"));
+//button1.setEnabled(false);
+//                    button1.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv1.setBackgroundColor(Color.parseColor("#68615E"));
+//
+//                    button2.setEnabled(false);
+//                    button2.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv2.setBackgroundColor(Color.parseColor("#68615E"));
+//
+//                    button3.setEnabled(false);
+//                    button3.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv3.setBackgroundColor(Color.parseColor("#68615E"));
+//                    button3.setEnabled(false);
+//                    button3.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv3.setBackgroundColor(Color.parseColor("#68615E"));
             }
             @Override
             //하나 이상의 비콘 Region이 표시 될 때 MonitorNotifier.INSIDE 상태 값으로 호출
@@ -172,12 +197,13 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
                 if (beacons.size() > 0) {
                     for (Beacon B : list) {
                         //Log.i(TAG2, "Beacon : " + B + ":::");
-                        Log.i(TAG2, ":::::The beacon Distance is about " + B.getDistance() + " meters away.:::::");
-                        Log.i(TAG2, ":::::This :: U U I D :: of beacon   :  " + B.getId1().toString() + ":::::");
-                        Log.i(TAG2, ":::::This ::M a j o r:: of beacon   :  " + B.getId2().toString() + ":::::");
+                        Log.i(TAG2, ":::::------------------------------------------------------------------:::::");
+//                        Log.i(TAG2, ":::::This :: U U I D :: of beacon   :  " + B.getId1().toString() + ":::::");
+//                        Log.i(TAG2, ":::::This ::M a j o r:: of beacon   :  " + B.getId2().toString() + ":::::");
                         Log.i(TAG2, ":::::This ::M i n o r:: of beacon   :  " + B.getId3().toString() + ":::::");
+                        Log.i(TAG2, ":::::The beacon Distance is about " + B.getDistance() + " meters away.:::::");
                         // 통신 코드
-                        if(B.getDistance() < 4.0) {
+                        if(B.getDistance() < 0.6) { // 1.5 meter
                             uuid = B.getId1().toString();
                             major = B.getId2().toString();
                             minor = B.getId3().toString();
@@ -189,42 +215,44 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
                             // 문 개폐 일정거리 정해놓고 서버로 보냄
                         }
                         else{
+                            Log.e(TAG2, "::::: " + B.getId3() + "out out out"+ B.getDistance() + " meters away.:::::");
+                            //Toast.makeText(RangingActivity.this, ": " + B.getId3() + "out"+ B.getDistance() + " meters away.:", Toast.LENGTH_SHORT).show();
                             if (B.getId3().toString().equals("5761")) {
                                 flag1 = true;
                                 button1.setEnabled(false);
                                 button1.setBackgroundColor(Color.parseColor("#999999"));
-                                tv1.setBackgroundColor(Color.RED);
+                                tv1.setBackgroundColor(Color.parseColor("#68615E"));
                             }
                             else if (B.getId3().toString().equals("578")) {
                                 flag2 = true;
                                 button2.setEnabled(false);
                                 button2.setBackgroundColor(Color.parseColor("#999999"));
-                                tv2.setBackgroundColor(Color.RED);
+                                tv2.setBackgroundColor(Color.parseColor("#68615E"));
                             }
                             else if (B.getId3().toString().equals("5782")) {
                                 flag3 = true;
                                 button3.setEnabled(false);
                                 button3.setBackgroundColor(Color.parseColor("#999999"));
-                                tv3.setBackgroundColor(Color.RED);
+                                tv3.setBackgroundColor(Color.parseColor("#68615E"));
                             }
                         }
                     }
                 }
-                if (!flag1){
-                    button1.setEnabled(false);
-                    button1.setBackgroundColor(Color.parseColor("#999999"));
-                    tv1.setBackgroundColor(Color.RED);
-                }
-                else if (!flag2){
-                    button2.setEnabled(false);
-                    button2.setBackgroundColor(Color.parseColor("#999999"));
-                    tv2.setBackgroundColor(Color.RED);
-                }
-                else if (!flag3){
-                    button3.setEnabled(false);
-                    button3.setBackgroundColor(Color.parseColor("#999999"));
-                    tv3.setBackgroundColor(Color.RED);
-                }
+//                if (!flag1){
+//                    button1.setEnabled(false);
+//                    button1.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv1.setBackgroundColor(Color.parseColor("#68615E"));
+//                }
+//                else if (!flag2){
+//                    button2.setEnabled(false);
+//                    button2.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv2.setBackgroundColor(Color.parseColor("#68615E"));
+//                }
+//                else if (!flag3){
+//                    button3.setEnabled(false);
+//                    button3.setBackgroundColor(Color.parseColor("#999999"));
+//                    tv3.setBackgroundColor(Color.parseColor("#68615E"));
+//                }
             }
         });
         try {
@@ -330,7 +358,7 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
         protected String doInBackground(String... urls) {
             JSONObject jsonObject = new JSONObject();
             try {
-                Log.i(TAG2, "abcdefg"+urls[0]+urls[1]+urls[2]+urls[3]);
+                Log.i(TAG2, urls[0]+urls[1]+urls[2]+urls[3]);
                 jsonObject.accumulate("uuid", urls[1]);
                 jsonObject.accumulate("major", urls[2]);
                 jsonObject.accumulate("minor", urls[3]);
@@ -350,7 +378,7 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
                 @Override
                 public void run() {
                     //Toast.makeText(rangAct, "Received!", Toast.LENGTH_LONG).show();
-                    Toast.makeText(RangingActivity.this, "Received!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RangingActivity.this, "Received!", Toast.LENGTH_SHORT).show();
                     try {
                         JSONArray json = new JSONArray(strJson);
                         //rangAct.tvResponse.setText(json.toString(1)); check
@@ -388,21 +416,21 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
         //573 578 5782 5787 5761 // 0 1 2 3 4 5
         if (id == 5761){
             flag1 = true;
-            tv1.setBackgroundColor(Color.BLUE);
+            tv1.setBackgroundColor(Color.parseColor("#3F51B5"));
             tv1.setText(RoomName[Bid][0]+ " " + "회의실");
             button1.setEnabled(true);
             button1.setBackgroundColor(Color.parseColor("#017488"));
         }
         else if (id == 578){
             flag2 = true;
-            tv2.setBackgroundColor(Color.BLUE);
+            tv2.setBackgroundColor(Color.parseColor("#3F51B5"));
             tv2.setText(RoomName[Bid][1]+ " " + "회의실");
             button2.setEnabled(true);
             button2.setBackgroundColor(Color.parseColor("#017488"));
         }
         else if (id == 5782){
             flag3 = true;
-            tv3.setBackgroundColor(Color.BLUE);
+            tv3.setBackgroundColor(Color.parseColor("#3F51B5"));
             tv3.setText(RoomName[Bid][2]+ " " + "회의실");
             button3.setEnabled(true);
             button3.setBackgroundColor(Color.parseColor("#017488"));

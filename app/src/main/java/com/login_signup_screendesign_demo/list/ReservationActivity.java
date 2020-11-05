@@ -1,4 +1,3 @@
-
 package com.login_signup_screendesign_demo.list;
 
 import android.app.DatePickerDialog;
@@ -39,10 +38,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ReservationActivity extends AppCompatActivity {
-
     private TextView textView_Date;
     private DatePickerDialog.OnDateSetListener callbackMethod;
-
+    private TextView UsageName;
     private TextView textView_Starttime;
     private TimePickerDialog.OnTimeSetListener callbackStarttimeMethod;
     private TextView textView_Endtime;
@@ -51,7 +49,7 @@ public class ReservationActivity extends AppCompatActivity {
     String SDate = "";
     String STime = "";
     String ETime = "";
-    String[] Usage = {"-용도 선택-","학습","회의","수업","기타"};
+    String[] Usage = {"- 용도 선택 -","학습","회의","수업","기타"};
     String currUsage = "";
     //전역변수 사용할 것 check
     int SelectedBuildingID = 1;
@@ -67,15 +65,20 @@ public class ReservationActivity extends AppCompatActivity {
     // 형남, 문화, 중앙
     public int[] BuildingTextID = {R.id.room1,R.id.room2,R.id.room3};
     public String[] BuildingName = {"형남공학관","문화관","중앙도서관"};
-    public String[][] RoomName = {{"424","522","525"},{"소프트웨어실습실","하드웨어실습실","541"},{"101","201","302"}};
+    public String[][] RoomName = {{"424","522","1101","- 회의실 선택 -"},{"소프트웨어실습실","하드웨어실습실","541","- 회의실 선택 -"},{"101","201","302","- 회의실 선택 -"}};
 
     Spinner spiner;
+    Spinner spiner2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
         Calendar now = Calendar.getInstance();
+        this.InitializeView();
+        this.InitializeListener(); // SDate의 갱신
         //Spinner 코드
+        TextView buildingText = (TextView) findViewById(R.id.Building_text);
+        buildingText.setText(BuildingName[SelectedBuildingID] + " 회의실 예약하기");
         spiner = (Spinner) findViewById(R.id.spinner);
         arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_spinner_dropdown_item,
@@ -90,7 +93,7 @@ public class ReservationActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
                 else{
-                Toast.makeText(getApplicationContext(),Usage[i]+"가 선택되었습니다.",
+                Toast.makeText(getApplicationContext(),Usage[i]+"이(가) 선택되었습니다.",
                         Toast.LENGTH_SHORT).show();
                 currUsage = Usage[i];
                 }
@@ -117,9 +120,9 @@ public class ReservationActivity extends AppCompatActivity {
             }
         });
 
+
+
         onDateFormat(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DATE));
-        this.InitializeView();
-        this.InitializeListener(); // SDate의 갱신
         requestLookup();
         textView_Starttime = (TextView)findViewById(R.id.textView_Starttime);
         textView_Endtime = (TextView)findViewById(R.id.textView_Endtime);
@@ -161,15 +164,39 @@ public class ReservationActivity extends AppCompatActivity {
             }
         });
 
+        spiner2 = (Spinner) findViewById(R.id.spinner2);
+        arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                RoomName[SelectedBuildingID]);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spiner2.setAdapter(arrayAdapter);
+        spiner2.setSelection(3);
+        spiner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i==3){
+                    Toast.makeText(getApplicationContext(),"회의실을 선택해주세요.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),RoomName[SelectedBuildingID][i]+"이(가) 선택되었습니다.",
+                            Toast.LENGTH_SHORT).show();
+                    rno = i;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
         Button ReservationButton = (Button) findViewById(R.id.buttonReservation);
-        //TextView NumberBno = (TextView) findViewById(R.id.TextBno);
-        TextView NumberRno = (TextView) findViewById(R.id.TextRno);
         ReservationButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                rno = Integer.parseInt(NumberRno.getText().toString()); // check
+                if (rno == 4) {
+                    Toast.makeText(getApplicationContext(), "회의실을 선택해주세요.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 requestReserve();
-
-
             }
         });
 
@@ -197,13 +224,14 @@ public class ReservationActivity extends AppCompatActivity {
                 else{
                     STime = hourOfDay + ":";
                 }
-
-                if(minute < 10){
-                    STime += "0" + minute + ":00";
-                }
-                else{
-                    STime = minute + ":00";
-                }
+                STime += "00:00";
+//                if(minute < 10){
+//                    STime += "00:00";
+//                }
+//                else{
+//                    STime = minute + ":00";
+//                }
+                textView_Starttime.setText(STime);
             }
 
         };
@@ -214,20 +242,29 @@ public class ReservationActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute)
             {
                 textView_Endtime.setText(hourOfDay + "시" + minute + "분");
-                if(hourOfDay < 10){
-                    ETime = "0" + hourOfDay + ":";
+                if(hourOfDay < 9){
+                    if(minute!=0)
+                        ETime = "0" + (hourOfDay+1) + ":";
+                    else
+                        ETime = "0" + hourOfDay + ":";
                 }
                 else{
-                    ETime = hourOfDay + ":";
+                    if(minute!=0)
+                        ETime = (hourOfDay+1) + ":";
+                    else
+                        ETime = hourOfDay + ":";
                 }
-
-                if(minute < 10){
-                    ETime += "0" + minute + ":00";
+                ETime += "00:00";
+//                if(minute < 10){
+//                    ETime += "00:00";
+//                }
+//                else{
+//                    ETime = minute + ":00";
+//                }
+                if (hourOfDay == 17){
+                    ETime = "05:00:00";
                 }
-                else{
-                    ETime = minute + ":00";
-                }
-
+                textView_Endtime.setText(ETime);
             }
         };
 
@@ -274,11 +311,19 @@ public class ReservationActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 try {
                     System.out.println("데이터전송 성공");
+                    for(int i = 0; i < 3; i++) {
+                        for(int j = 0; j < 8; j++) {
+                            View v = (View) findViewById(imv[i][j]);
+                            v.setBackgroundColor(Color.parseColor("#50ADBD")); //예약된 색상
+                        }
+                    }
 
                     // response 갯수만큼 반복
                     // 매 반복에서 start_time, end_time, rno를 꺼냄
+                    Toast.makeText(ReservationActivity.this, "회의실 정보가 조회되었습니다.", Toast.LENGTH_SHORT).show();
                     for (int i=0; i < response.length(); i++) {
                         System.out.println("데이터전송 성공");
+
                         System.out.println(response.getJSONObject(i).getInt("start"));
                         System.out.println(response.getJSONObject(i).getInt("end"));
                         System.out.println(response.getJSONObject(i).getInt("rno"));
@@ -286,17 +331,12 @@ public class ReservationActivity extends AppCompatActivity {
                         int s = response.getJSONObject(i).getInt("start") - 9;
                         int e = response.getJSONObject(i).getInt("end") - 9;
                         int rn = response.getJSONObject(i).getInt("rno"); // rno는 회의실 순서 ex) 0:522 1:424 2:525 // bno -> 0, 1, 2 형남, 문화, 중앙도서관
-                        System.out.println(s);
-                        System.out.println(e);
-                        System.out.println(rn);
 //                        TextView t = (TextView) findViewById(BuildingTextID[rn]);
 //                        t.setText(BuildingName[SelectedBuildingID] + " " + RoomName[rn]);
                         // 시작시간 부터 종료예약시간까지 색깔을 바꿔줌
                         for(int j = s; j < e; j++) {
                             View v = (View) findViewById(imv[rn][j]);
-                            //v.setBackgroundColor(Color.parseColor("#50ADBD")); // 예약 가능한 색상
                             v.setBackgroundColor(Color.parseColor("#999999")); //예약된 색상
-
                         }
                     }
 
@@ -311,7 +351,7 @@ public class ReservationActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Toast.makeText(ReservationActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ReservationActivity.this, "서버 연결 실패!", Toast.LENGTH_SHORT).show();
             }
         });
         //jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -327,39 +367,37 @@ public class ReservationActivity extends AppCompatActivity {
         JSONObject testjson = new JSONObject();
         try {
             //입력 put해줍니다 : 데이터를 json형식으로 바꿔 넣어주었습니다.
+            //JSONArray jsonArr1 = new JSONArray();
             testjson.put("title", currUsage);
             testjson.put("day", SDate); // or currBuilding->string
             testjson.put("start", STime);
             testjson.put("end", ETime);
             testjson.put("bno",SelectedBuildingID);
             testjson.put("rno",rno);
+            //jsonArr1.put(testjson);
             //String jsonString = testjson.toString(); //완성된 json 포맷
 
             //이제 전송
             final RequestQueue requestQueue = Volley.newRequestQueue(ReservationActivity.this);
-            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url,testjson, new Response.Listener<JSONObject>() {
-
-                //데이터 전달을 끝내고 이제 그 응답을 받을 차례
+            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, testjson, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
                         System.out.println("예약 성공");
 
                         //받은 json형식의 응답을 받아
-                        JSONObject jsonObject = new JSONObject(response.toString());
+                        //JSONObject jsonarray = new JSONObject(response.toString());
+                        String flag = response.getString("ret");
 
-                        //key값에 따라 value값을 쪼개 받아옵니다.
-                        boolean flag = jsonObject.getBoolean("flag");
-                        JSONArray reserveArray = jsonObject.getJSONArray("reserveInfo");
-
-                        if (flag){
+                        if (flag.equals("success")){
+                            Toast.makeText(ReservationActivity.this, "회의실이 예약되었습니다.", Toast.LENGTH_SHORT).show();
                             requestLookup();
                         }
                         else
                             Toast.makeText(getApplicationContext(),"해당 시간은 이미 예약되어있습니다. 다른 시간을 선택해주세요.",
                                     Toast.LENGTH_SHORT).show();
-
-                    } catch (Exception e) {
+                    }
+                    catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -368,7 +406,7 @@ public class ReservationActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
-                    Toast.makeText(ReservationActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReservationActivity.this, "서버 연결 실패!", Toast.LENGTH_SHORT).show();
                 }
             });
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -382,6 +420,7 @@ public class ReservationActivity extends AppCompatActivity {
     public void onDateFormat(int year, int monthOfYear, int dayOfMonth)
     {
         monthOfYear += 1;
+        textView_Date.setText(year + "년" + monthOfYear + "월" + dayOfMonth + "일");
         if(monthOfYear < 10){
             SDate = year + "/0" + monthOfYear;
         }
