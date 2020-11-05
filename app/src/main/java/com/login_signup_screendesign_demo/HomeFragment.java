@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View v;
         Bundle args = getArguments();
         bno = args.getInt("bno");
         System.out.println("home fragment bno:"+bno);;
