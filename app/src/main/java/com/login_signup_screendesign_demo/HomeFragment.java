@@ -1,6 +1,7 @@
 package com.login_signup_screendesign_demo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,11 +71,21 @@ public class HomeFragment extends Fragment {
         backbutton = (ImageView) v.findViewById(R.id.backicon);
         buildingnumview = (TextView) v.findViewById(R.id.buildingnumber);
         String k ;
-        if(bno ==0 ){ k= "현재 위치는\n형남공학관 입니다";buildingnumview.setText(k);}
+        if(bno ==0 ){
+            k= "현재 위치는\n형남공학관 입니다";
+            buildingnumview.setTextColor(Color.WHITE);
+            buildingnumview.setText(k);
+        }
         else if(bno ==1)
-        { k = "현재 위치는\n문화관 입니다"; buildingnumview.setText(k);}
+        {
+            k = "현재 위치는\n문화관 입니다";
+            buildingnumview.setTextColor(Color.WHITE);
+            buildingnumview.setText(k);
+        }
         else if (bno ==2){
-            k= "현재 위치는\n중앙도서관 입니다"; buildingnumview.setText(k);
+            k= "현재 위치는\n중앙도서관 입니다";
+            buildingnumview.setTextColor(Color.WHITE);
+            buildingnumview.setText(k);
         }
 
         v.findViewById(R.id.morebutton).setOnClickListener(
@@ -120,7 +131,6 @@ public class HomeFragment extends Fragment {
 
 
         list = new ArrayList<>();
-        int bno =2;
         Call<List<IntellisPost>> call = intellisApi.getPosts(bno);
         call.enqueue(new Callback<List<IntellisPost>>() {
             @Override

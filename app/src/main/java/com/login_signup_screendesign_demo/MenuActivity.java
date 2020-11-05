@@ -35,7 +35,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         Intent intent = getIntent();
-         bno = intent.getIntExtra("bno",0);
+        bno = intent.getIntExtra("bno",0);
 
         Bundle bundle = new Bundle();
         bundle.putInt("bno",bno);

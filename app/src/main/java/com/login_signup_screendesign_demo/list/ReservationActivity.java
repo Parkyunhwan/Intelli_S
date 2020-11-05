@@ -2,6 +2,7 @@ package com.login_signup_screendesign_demo.list;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -52,10 +53,10 @@ public class ReservationActivity extends AppCompatActivity {
     String[] Usage = {"- 용도 선택 -","학습","회의","수업","기타"};
     String currUsage = "";
     //전역변수 사용할 것 check
-    int SelectedBuildingID = 1;
+    int SelectedBuildingID;
 
     ArrayAdapter<String> arrayAdapter;
-    int bno = 0;
+    int bno;
     int rno = 0;
     View[] im = new View[8];
     public int[][] imv= {{R.id.view00, R.id.view01, R.id.view02, R.id.view03,R.id.view04, R.id.view05, R.id.view06, R.id.view07},
@@ -65,7 +66,7 @@ public class ReservationActivity extends AppCompatActivity {
     // 형남, 문화, 중앙
     public int[] BuildingTextID = {R.id.room1,R.id.room2,R.id.room3};
     public String[] BuildingName = {"형남공학관","문화관","중앙도서관"};
-    public String[][] RoomName = {{"424","522","1101","- 회의실 선택 -"},{"소프트웨어실습실","하드웨어실습실","541","- 회의실 선택 -"},{"101","201","302","- 회의실 선택 -"}};
+    public String[][] RoomName = {{"424호","522호","1101호","- 회의실 선택 -"},{"소프트웨어실습실","하드웨어실습실","541호","- 회의실 선택 -"},{"101호","102호","401호","- 회의실 선택 -"}};
 
     Spinner spiner;
     Spinner spiner2;
@@ -73,6 +74,10 @@ public class ReservationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
+
+        Intent intent = getIntent();
+        SelectedBuildingID = intent.getIntExtra("bno",0);
+
         Calendar now = Calendar.getInstance();
         this.InitializeView();
         this.InitializeListener(); // SDate의 갱신
@@ -295,7 +300,6 @@ public class ReservationActivity extends AppCompatActivity {
     }
     public void requestLookup(){
         System.out.println("requestLookup 시작");
-        SelectedBuildingID = 1;//((BuildingID)this.getApplication()).getData(); // 현재 빌딩정보를 받아옴
         //url 요청주소 넣는 editText를 받아 url만들기
         String url = "http://192.168.137.1:8080/reserve/lookup"; // url 정보 SDate, SelectedBuildingID
 
@@ -406,7 +410,7 @@ public class ReservationActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
-                    Toast.makeText(ReservationActivity.this, "서버 연결 실패!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReservationActivity.this, "해당 시간은 예약이 불가능합니다. (9시 ~ 17시 선택)", Toast.LENGTH_SHORT).show();
                 }
             });
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

@@ -2,6 +2,7 @@ package com.login_signup_screendesign_demo.list;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -57,10 +58,10 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
     String uuid="24ddf411-8cf1-440c-87cd-e368daf9c93e";
     Boolean flag = false;
     TextView tvResponse;
-    int Bid = 0; // 전역변수!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    int Bid; // 전역변수!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //public int[] BuildingTextID = {R.id.room1,R.id.room2,R.id.room3};
     public String[] BuildingName = {"형남공학관","문화관","중앙도서관"};
-    public String[][] RoomName = {{"424","522","1101"},{"소프트웨어실습실","하드웨어실습실","541"},{"101","102","401"}};
+    public String[][] RoomName = {{"424호","522호","1101호"},{"소프트웨어실습실","하드웨어실습실","541호"},{"101호","102호","401호"}};
     TextView tv1;
     TextView tv2;
     TextView tv3;
@@ -78,6 +79,8 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranging);
+        Intent intent = getIntent();
+        Bid = intent.getIntExtra("bno",0);
         //tvResponse = (TextView)findViewById(R.id.tvResponse); check
         TextView bn = (TextView)findViewById(R.id.bname);
         bn.setText(BuildingName[Bid] +" " + "회의실");
@@ -87,9 +90,9 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
         button1 = (Button)findViewById(R.id.button1);
         button2 = (Button)findViewById(R.id.button2);
         button3 = (Button)findViewById(R.id.button3);
-        tv1.setText(RoomName[Bid][0] + " 호 회의실");
-        tv2.setText(RoomName[Bid][1] + " 호 회의실");
-        tv3.setText(RoomName[Bid][2] + " 호 회의실");
+        tv1.setText(RoomName[Bid][0] + " 회의실");
+        tv2.setText(RoomName[Bid][1] + " 회의실");
+        tv3.setText(RoomName[Bid][2] + " 회의실");
         //Button button1 = (Button)findViewById(R.id.button1);
 
         button1.setOnClickListener(new View.OnClickListener() {

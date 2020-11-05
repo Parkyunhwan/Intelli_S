@@ -31,7 +31,7 @@ public class NoticeActivity extends AppCompatActivity {
     private List<String> titlelist;
     private List<String> updatedatelist;
     ListView listView;
-
+    int bno;
     Integer id;
     String text;
     String title;
@@ -42,7 +42,9 @@ public class NoticeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notice_list);
-
+        Intent intent = getIntent();
+        bno = intent.getIntExtra("bno",0);
+        System.out.println("get_value:::::::::::::::::::::::::::::::::: -- -- - -- -" + bno + "- - - - -");
        listView = (ListView) findViewById(R.id.listView);
 
         Retrofit retrofit = NetworkUtil.getRetrofit();
@@ -86,7 +88,6 @@ public class NoticeActivity extends AppCompatActivity {
         textlist = new ArrayList<>();
         updatedatelist= new ArrayList<>();
         Map<String, String> parameters = new HashMap<>();
-        int bno =2;
         //parameters.put("_sort","id");
         //parameters.put("_order","desc");
         Call<List<IntellisPost>> call = intellisApi.getPosts(bno);
