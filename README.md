@@ -1,11 +1,11 @@
 ## 🏢 스마트 빌딩 통합 관리 시스템 (Intelli_S) 🏢
 
 ### 💡 개발 환경
-* 아두이노, 라즈베리파이, 서보 모터, 비콘
-* IntelliJ, Android Studio, Rasbian
-* Spring boot, JPA, Thymeleaf, MySQL
+* Spring boot, MyBatis, Thymeleaf, MySQL
 * AltBeacon Library, Google Maps API
 * Thymeleaf, Bootstrap, Firebase, MQTT
+* IntelliJ, Android Studio, Rasbian
+* 아두이노, 라즈베리파이, 서보 모터, 비콘
 
 ### 💡 개발 배경
 * 복합 문화 빌딩의 증가로 인한 빌딩 통합 관리의 필요성 증가 
